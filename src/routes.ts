@@ -8,6 +8,7 @@ import { CreateCategoryController } from "./controllers/category/CreateCategoryC
 import { ListCategoryController } from "./controllers/category/ListCategoryController";
 import { CreateProductController } from "./controllers/product/CreateProductController";
 import { ListByCategoryController } from "./controllers/product/ListByCategoryController";
+import { CreateOrderController } from "./controllers/order/CreateOrderController";
 
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 
@@ -17,12 +18,12 @@ const router = Router();
 
 const upload = multer(uploadConfig.upload("./tmp"));
 
-// User Routes
+// !User Routes
 router.post("/users", new CreateUserController().handle);
 router.post("/session", new AuthUserController().handle);
 router.get("/userInfo", isAuthenticated, new DetailUserController().handle);
 
-// Category Routes
+// !Category Routes
 router.post(
   "/category",
   isAuthenticated,
@@ -30,7 +31,7 @@ router.post(
 );
 router.get("/category", isAuthenticated, new ListCategoryController().handle);
 
-// Products Routes
+// !Products Routes
 router.post(
   "/product",
   isAuthenticated,
@@ -42,5 +43,8 @@ router.get(
   isAuthenticated,
   new ListByCategoryController().handle
 );
+
+// !Order Routes
+router.post("/order", isAuthenticated, new CreateOrderController().handle);
 
 export { router };
