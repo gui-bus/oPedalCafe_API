@@ -20,6 +20,7 @@ import { FinishOrderController } from "./controllers/order/FinishOrderController
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 
 import uploadConfig from "./config/multer";
+import { DeleteProductController } from "./controllers/product/DeleteProductController";
 
 const router = Router();
 
@@ -50,20 +51,36 @@ router.get(
   isAuthenticated,
   new ListByCategoryController().handle
 );
+router.delete(
+  "/product/remove",
+  isAuthenticated,
+  new DeleteProductController().handle
+);
 
 // !Order Routes
 router.post("/order", isAuthenticated, new CreateOrderController().handle);
 router.delete("/order", isAuthenticated, new RemoveOrderController().handle);
 
 router.post("/order/add", isAuthenticated, new AddItemController().handle);
-router.delete("/order/remove", isAuthenticated, new RemoveItemController().handle);
+router.delete(
+  "/order/remove",
+  isAuthenticated,
+  new RemoveItemController().handle
+);
 
 router.put("/order/send", isAuthenticated, new SendOrderController().handle);
 
 router.get("/orders", isAuthenticated, new ListOrdersController().handle);
-router.get("/order/detail", isAuthenticated, new DetailOrderController().handle);
+router.get(
+  "/order/detail",
+  isAuthenticated,
+  new DetailOrderController().handle
+);
 
-router.put("/order/finish", isAuthenticated, new FinishOrderController().handle);
-
+router.put(
+  "/order/finish",
+  isAuthenticated,
+  new FinishOrderController().handle
+);
 
 export { router };
